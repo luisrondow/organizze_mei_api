@@ -4,13 +4,11 @@ services:
   api:
     build:
       context: .
-      dockerfile: api.Dockerfile
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
     container_name: api
     restart: always
-    volumes:
-      - api-logs: ./usr/src/node-api/logs:rw
     environment:
       - NODE_ENV=development
     depends_on:
