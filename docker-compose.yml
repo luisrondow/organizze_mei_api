@@ -10,7 +10,7 @@ services:
     container_name: api
     restart: always
     volumes:
-      - api-logs:/usr/src/node-api/logs:rw
+      - api-logs: ./usr/src/node-api/logs:rw
     environment:
       - NODE_ENV=development
     depends_on:
