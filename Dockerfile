@@ -1,27 +1,23 @@
-FROM node:12-alpine as builder
+FROM node:alpine
 
-ENV NODE_ENV build
+# diretório alvo
+RUN mkdir -p /usr/src/node-api
+WORKDIR /usr/src/node-api
 
-USER node
-WORKDIR /home/node
+# instalação de dependências
+RUN apk update && apk upgrade
+RUN apk add python3 g++ make
 
-COPY . /home/node
+# copiar o projeto e instalar os pacotes com o npm
+COPY . /usr/src/node-api/
+RUN npm install
 
-RUN npm ci \
-    && npm run build
+# instalação dos pacotes para envio de email
+RUN apk add msmtp
+RUN ln -sf /usr/bin/msmtp /usr/sbin/sendmail
 
-# ---
+# abrindo a porta 3000
+EXPOSE 3000
 
-FROM node:12-alpine
-
-ENV NODE_ENV production
-
-USER node
-WORKDIR /home/node
-
-COPY --from=builder /home/node/package*.json /home/node/
-COPY --from=builder /home/node/dist/ /home/node/dist/
-
-RUN npm ci
-
-CMD ["node", "dist/server.js"]
+# inicializando a API
+CMD [ "npm","run", "start:dev" ]
