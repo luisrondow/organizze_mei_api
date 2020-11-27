@@ -28,12 +28,12 @@ export class AccountsService {
   }
 
   async create(createAccountDto: CreateAccountDto): Promise<Account> {
-    const { name, bancoOrigem, saldoIncial, userId } = createAccountDto;
+    const { name, bancoOrigem, saldoInicial, userId } = createAccountDto;
     const [user] = await this.userRepository.findByIds([userId]);
     const account = this.accountRepository.create();
     account.name = name;
     account.bancoOrigem = bancoOrigem;
-    account.saldo = saldoIncial;
+    account.saldo = saldoInicial;
     account.user = user;
 
     try {

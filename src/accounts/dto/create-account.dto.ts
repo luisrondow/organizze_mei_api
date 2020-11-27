@@ -4,6 +4,6 @@ export class CreateAccountDto {
   @Allow()
   name: string;
   bancoOrigem: string;
-  saldoIncial: number;
+  saldoInicial: number;
   userId: string;
 }
