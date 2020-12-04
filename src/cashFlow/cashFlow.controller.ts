@@ -22,7 +22,7 @@ export class CashFlowController {
     return { cashFlow };
   }
 
-  @Get(':id')
+  @Get('/all/:id')
   async findAll(@Param('id') id): Promise<{ cashFlow: CashFlow[] }> {
     const cashFlow = await this.cashFlowService.findAll(id);
 
