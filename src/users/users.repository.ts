@@ -19,7 +19,6 @@ export class UserRepository extends Repository<User> {
     user.cnpj = cnpj;
     user.accounts = [];
 
-    console.log(user);
     try {
       await user.save();
       delete user.password;

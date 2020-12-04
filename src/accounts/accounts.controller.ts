@@ -1,21 +1,11 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
-import { AuthGuard } from '@nestjs/passport/dist';
 import { Account } from './account.entity';
 import { AccountsService } from './accounts.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Controller('accounts')
-// @UseGuards(AuthGuard())
 export class AccountsController {
   constructor(private accountsService: AccountsService) {}
 

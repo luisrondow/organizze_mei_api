@@ -4,6 +4,7 @@ import { typeOrmConfig } from './configs/typeorm.config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AccountsModule } from './accounts/accounts.module';
+import { CashFlowModule } from './cashFlow/cashFlow.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { AccountsModule } from './accounts/accounts.module';
     UsersModule,
     AuthModule,
     AccountsModule,
+    CashFlowModule,
   ],
   controllers: [],
   providers: [],

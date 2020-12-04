@@ -1,3 +1,4 @@
+import { CashFlow } from 'src/cashFlow/cashFlow.entity';
 import { User } from 'src/users/user.entity';
 import {
   BaseEntity,
@@ -7,6 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -22,6 +24,9 @@ export class Account extends BaseEntity {
 
   @Column({ nullable: false, type: 'float' })
   saldo: number;
+
+  @OneToMany((type) => CashFlow, (cashFlow) => cashFlow.account)
+  cashFlows: CashFlow[];
 
   @ManyToOne((type) => User, (user) => user.accounts)
   user: User;
