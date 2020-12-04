@@ -13,7 +13,9 @@ import { CreateCashFlowDto } from './dto/create-cashFlow.dto';
 @Injectable()
 export class CashFlowService {
   constructor(
+    @InjectRepository(AccountRepository)
     @InjectRepository(CashFlowRepository)
+    @InjectRepository(UserRepository)
     private accountRepository: AccountRepository,
     private cashFlowRepository: CashFlowRepository,
     private userRepository: UserRepository,
@@ -32,19 +34,27 @@ export class CashFlowService {
   }
 
   async findAll(userId: string): Promise<CashFlow[]> {
-    const [user] = await this.userRepository.findByIds([userId]);
+    const accounts = await this.accountRepository.find({
+      where: [
+        {
+          userId,
+        },
+      ],
+    });
     const allCashFlows = [];
-    user.accounts.map(async (account) => {
+
+    for (const account of accounts) {
       const cashFlows = await this.cashFlowRepository.find({
         where: [
           {
             accountId: account.id,
           },
         ],
+        relations: ['account'],
       });
 
       allCashFlows.push(...cashFlows);
-    });
+    }
 
     return allCashFlows;
   }
