@@ -29,6 +29,27 @@ export class CashFlowController {
     return { cashFlow };
   }
 
+  @Get('/reports/receita/:id')
+  async getReceitaByMonth(@Param('id') id): Promise<any> {
+    const cashFlow = await this.cashFlowService.getReceitaByMonth(id);
+
+    return { cashFlow };
+  }
+
+  @Get('/reports/despesa/:id')
+  async getDespesaByMonth(@Param('id') id): Promise<any> {
+    const cashFlow = await this.cashFlowService.getDespesaByMonth(id);
+
+    return { cashFlow };
+  }
+
+  @Get('/reports/categoria/:id')
+  async getCategoryByMonth(@Param('id') id): Promise<any> {
+    const cashFlow = await this.cashFlowService.getByCategory(id);
+
+    return { cashFlow };
+  }
+
   @Post()
   async create(
     @Body(ValidationPipe) createCashFlowDto: CreateCashFlowDto,
