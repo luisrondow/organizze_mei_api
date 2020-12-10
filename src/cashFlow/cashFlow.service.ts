@@ -79,9 +79,14 @@ export class CashFlowService {
     cashFlow.type = type;
     cashFlow.account = account;
     cashFlow.accountId = accountId;
+    account.saldo =
+      type === 'receita'
+        ? account.saldo + cashFlow.price
+        : account.saldo - cashFlow.price;
 
     try {
       await cashFlow.save();
+      await account.save();
 
       return cashFlow;
     } catch (error) {
